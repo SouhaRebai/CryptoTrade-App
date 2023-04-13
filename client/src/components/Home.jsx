@@ -1,8 +1,77 @@
 import React from 'react'
+import { AiFillPlayCircle } from "react-icons/ai";
+import { SiEthereum } from "react-icons/si";
+import { BsInfoCircle } from "react-icons/bs";
+import earth from '../../images/rotating_earth.gif'
 
+const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 const Home = () => {
+
+    const connectWallet = () => {
+
+    }
   return (
-    <div>Home</div>
+    <div className="flex justify-center items-center">
+    <div className="flex md:flex-row flex-col items-start  md:p-20 py-10 ">
+      <div className="flex flex-1 justify-start items-start flex-col md:mr-20">
+        <h1 className="text-3xl sm:text-4xl text-white text-gradient py-1">Send Crypto</h1>
+        <h1 className="text-3xl sm:text-4xl text-white text-gradient py-1">across the world</h1>
+                <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
+          Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto.
+        </p>
+        <button type='button' onClick={connectWallet}
+        className='flex flex-row justify-center items-center my-6 bg-[#254fbd] p-3
+        rounded-[20px] cursor-pointer hover:bg-[#2562bd]  w-full'>
+           <p className='text-white uppercase'><b>Connect wallet</b></p>
+        </button>
+        <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
+            <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
+              Reliability
+            </div>
+            <div className={companyCommonStyles}>
+                Security
+            </div>
+            <div className={`sm:rounded-tr-2xl ${companyCommonStyles}`}>
+              Ethereum
+            </div>
+            <div className={`sm:rounded-bl-2xl ${companyCommonStyles}`}>
+              Web 3.0
+            </div>
+            <div className={companyCommonStyles}>
+                Low gas fees
+            </div>
+            <div className={`rounded-br-2xl ${companyCommonStyles}`}>
+              Blockchain
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
+          <div className="p-3 flex justify-end items-start flex-col rounded-xl
+           h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
+             <div className="flex justify-between flex-col w-full h-full">
+              <div className="flex justify-between items-start">
+                <div className="w-10 h-10 rounded-full border-2 border-white 
+                flex justify-center items-center">
+                  <SiEthereum fontSize={21} color="#fff" />
+                </div>
+                <BsInfoCircle fontSize={17} color="#fff" />
+              </div>
+              <div >
+             <p className='text-white text-left font-light text-sm'>
+                {/* will contain the address of the wallet currently connected*/} 
+                0x...1852</p> 
+               <p className='text-white text-left font-light'>
+               <b>Ethereum</b></p>
+
+             </div>
+             
+            </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        
+ 
   )
 }
 
