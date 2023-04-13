@@ -3,23 +3,24 @@ import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import earth from '../../images/rotating_earth.gif'
-
+import Loader from './Loader';
 const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
+const inputStyles ="my-2 w-full rounded-[#2px] p-2 pl-4 outline-none bg-transparent text-white border-nonetext-sm white-glassmorphism"
 const Home = () => {
-
-    const connectWallet = () => {
+    const handleSubmit =() => {
 
     }
+ 
   return (
     <div className="flex justify-center items-center">
-    <div className="flex md:flex-row flex-col items-start  md:p-20 py-10 ">
-      <div className="flex flex-1 justify-start items-start flex-col md:mr-20">
+    <div className="flex mf:flex-row flex-col items-start  md:p-20 py-10 ">
+      <div className="flex flex-1 justify-start items-start flex-col mf:mr-20">
         <h1 className="text-3xl sm:text-4xl text-white text-gradient py-1">Send Crypto</h1>
         <h1 className="text-3xl sm:text-4xl text-white text-gradient py-1">across the world</h1>
                 <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
           Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto.
         </p>
-        <button type='button' onClick={connectWallet}
+        <button type='button' 
         className='flex flex-row justify-center items-center my-6 bg-[#254fbd] p-3
         rounded-[20px] cursor-pointer hover:bg-[#2562bd]  w-full'>
            <p className='text-white uppercase'><b>Connect wallet</b></p>
@@ -47,25 +48,49 @@ const Home = () => {
         </div>
         <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
           <div className="p-3 flex justify-end items-start flex-col rounded-xl
-           h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
-             <div className="flex justify-between flex-col w-full h-full">
-              <div className="flex justify-between items-start">
-                <div className="w-10 h-10 rounded-full border-2 border-white 
-                flex justify-center items-center">
-                  <SiEthereum fontSize={21} color="#fff" />
+            h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism ">
+                <div className="flex justify-between flex-col w-full h-full">
+                    <div className="flex justify-between items-start">
+                        <div className="w-10 h-10 rounded-full border-2 border-white 
+                        flex justify-center items-center">
+                        <SiEthereum fontSize={21} color="#fff" />
+                        </div>
+                        <BsInfoCircle fontSize={17} color="#fff" />
+                    </div>
+                    <div >
+                    <p className='text-white text-left font-light text-sm'>
+                        {/* will contain the address of the wallet currently connected*/} 
+                        0x...1852</p> 
+                    <p className='text-white text-left font-light'>
+                    <b>Ethereum</b></p>
+                    </div>
                 </div>
-                <BsInfoCircle fontSize={17} color="#fff" />
-              </div>
-              <div >
-             <p className='text-white text-left font-light text-sm'>
-                {/* will contain the address of the wallet currently connected*/} 
-                0x...1852</p> 
-               <p className='text-white text-left font-light'>
-               <b>Ethereum</b></p>
-
-             </div>
-             
             </div>
+
+            <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
+                <input placeholder='Send to...' type="text"  name="receiver" className={inputStyles}/>
+                <input placeholder='Eth amount...' type="number" step="0.0001" name="amount" className={inputStyles}/>
+                <input placeholder='Keyword (to insert gif)...' type="text" name="keyword" className={inputStyles}/>
+                <input placeholder='Message...' type="text" name="message" className={inputStyles}/>
+                
+                {/* add self closing div for a straight line */}
+                <div className="h-[1px] w-full bg-gray-400 my-2" />
+                {/* either render the loader or the button */}
+                { true ? 
+                (<Loader/>
+                ):(
+                <button
+                type="button"
+                onClick={handleSubmit}
+                className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer">
+                    Send now
+                </button>
+                    )}
+                    
+             
+
+
+
             </div>
         </div>
         </div>
