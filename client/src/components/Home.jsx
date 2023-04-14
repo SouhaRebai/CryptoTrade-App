@@ -8,6 +8,19 @@ import { TransactionContext } from '../context/TransactionContext';
 const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 const inputStyles ="my-2 w-full rounded-[#2px] p-2 pl-4 outline-none bg-transparent text-white border-nonetext-sm white-glassmorphism"
 
+
+const Input = ({ placeholder, name, type, value, handleChange }) => (
+  <input
+    placeholder={placeholder}
+    type={type}
+    step="0.0001"
+    value={value}
+    onChange={(e) => handleChange(e, name)}
+    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+  />
+);
+
+
 const Home = () => {
   const {connectWallet,currentAccount, formData, handleChange, sendTransaction} = useContext(TransactionContext)
   const handleSubmit =(e) => {
@@ -76,11 +89,10 @@ const Home = () => {
             </div>
 
             <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-                <input placeholder='Send to...' type="text"  name="receiver" className={inputStyles} onChange={handleChange}/>
-                <input placeholder='Eth amount...' type="number" step="0.0001" name="amount" className={inputStyles} onChange={handleChange}/>
-                <input placeholder='Keyword (to insert gif)...' type="text" name="keyword" className={inputStyles} onChange={handleChange}/>
-                <input placeholder='Message...' type="text" name="message" className={inputStyles} onChange={handleChange}/>
-                
+            <Input placeholder="Address To" name="receiver" type="text" handleChange={handleChange} />
+            <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange} />
+            <Input placeholder="Keyword (Gif)" name="keyword" type="text" handleChange={handleChange} />
+            <Input placeholder="Enter Message" name="message" type="text" handleChange={handleChange} />
                 {/* add self closing div for a straight line */}
                 <div className="h-[1px] w-full bg-gray-400 my-2" />
                 {/* either render the loader or the button */}
