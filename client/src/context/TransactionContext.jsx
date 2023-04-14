@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {ethers} from 'ethers';
 import {contractAbi, contractAddress } from '../utils/constants';
-const { ethereum } = window;
 
 export const TransactionContext = React.createContext();
 
 const getEthereumContract = () => {
-    const provider = new ethers.providers.Web3Provider(ethereum);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const transactionsContract = new ethers.Contract(contractAddress,contractAbi,signer);
-    console.log({provider,signer,transactionContract})
+    console.log({provider,signer,transactionsContract})
     return transactionsContract;
 }
 
@@ -41,7 +40,6 @@ export const TransactionProvider = ({children}) => {
             }
           } catch (error) {
             console.log(error)
-            throw new Error("No ethereum object.")
           }
       
         }
@@ -56,7 +54,6 @@ export const TransactionProvider = ({children}) => {
             const {receiver, amount, keyword, message} = formData;
         } catch (error) {
             console.log(error)
-            throw new Error("No ethereum object.")
         }
     }
 
@@ -68,7 +65,6 @@ export const TransactionProvider = ({children}) => {
 
         } catch (error) {
             console.log(error)
-            throw new Error("No ethereum object.")
             
         }
 
