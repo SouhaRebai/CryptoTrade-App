@@ -14,6 +14,8 @@ const getEthereumContract = () => {
 
 export const TransactionProvider = ({children}) => {
     const [currentAccount,setCurrentAccount] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const [transactionCount, setTransactionCount] = useState(localStorage.getItem('transactionCount'))
     const [formData, setFormData] = useState({
         receiver:'',
         amount:'',
@@ -47,11 +49,38 @@ export const TransactionProvider = ({children}) => {
          checkConnection()
     }, []);
 
-    const sendTransaction = async () => {
+    const sendTransaction =  async() => {
         try {
             if (!ethereum) return alert("Please install MetaMask.");
-             getEthereumContract();
+            const transactionsContract =  getEthereumContract();
             const {receiver, amount, keyword, message} = formData;
+            const parsedAmount = ethers.utils.parseEther(amount); 
+            //amount has to be converted to hex
+
+            await ethereum.request({
+                method: "eth_sendTransaction",
+                params: [{
+                  from: currentAccount,
+                  to: receiver,
+                  gas: "0x5208", // transaction fee =21000 Gwei = 0.000021 ETH
+                  value: parsedAmount._hex,
+                }],
+            });
+            //the code above only does the transaction 
+            //we need to provide the code that will store in the blockchain
+            const transactionHash = await transactionsContract.addTransaction(receiver, parsedAmount, message, keyword);
+
+            //a transaction takes time -- we need a loading state
+            setIsLoading(true);
+            console.log(`Loading - ${transactionHash.hash}`)
+            await transactionHash.wait();
+            setIsLoading(false);
+            console.log(`Success - ${transactionHash.hash}`)
+
+            const transactionsCount = await transactionsContract.getTransactionCount();
+            setTransactionCount(transactionsCount.toNumber());
+
+
         } catch (error) {
             console.log(error)
         }
