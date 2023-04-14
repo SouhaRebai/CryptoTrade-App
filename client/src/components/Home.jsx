@@ -4,6 +4,8 @@ import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import Loader from './Loader';
 import { TransactionContext } from '../context/TransactionContext';
+import { shortenAddress } from "../utils/shortenAddress";
+
 
 const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 const inputStyles ="my-2 w-full rounded-[#2px] p-2 pl-4 outline-none bg-transparent text-white border-nonetext-sm white-glassmorphism"
@@ -16,7 +18,8 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
     step="0.0001"
     value={value}
     onChange={(e) => handleChange(e, name)}
-    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+    className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none
+    text-sm white-glassmorphism"
   />
 );
 
@@ -79,9 +82,8 @@ const Home = () => {
                         <BsInfoCircle fontSize={17} color="#fff" />
                     </div>
                     <div >
-                    <p className='text-white text-left font-light text-sm'>
-                        {/* will contain the address of the wallet currently connected*/} 
-                        0x...1852</p> 
+                    <p className='text-white text-left font-light text-sm truncate'>
+                        {shortenAddress(currentAccount)} </p> 
                     <p className='text-white text-left font-light'>
                     <b>Ethereum</b></p>
                     </div>
@@ -106,11 +108,6 @@ const Home = () => {
                     Send now
                 </button>
                     )}
-                    
-             
-
-
-
             </div>
         </div>
         </div>
