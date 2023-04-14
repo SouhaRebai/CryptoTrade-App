@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
-import earth from '../../images/rotating_earth.gif'
 import Loader from './Loader';
+import { TransactionContext } from '../context/TransactionContext';
+
 const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 const inputStyles ="my-2 w-full rounded-[#2px] p-2 pl-4 outline-none bg-transparent text-white border-nonetext-sm white-glassmorphism"
-const Home = () => {
-    const handleSubmit =() => {
 
+const Home = () => {
+  const {connectWallet,currentAccount, formData, handleChange, sendTransaction} = useContext(TransactionContext)
+  const handleSubmit =(e) => {
+      const {receiver, amount, keyword, message} = formData;
+      e.preventDefault();
+      if(!receiver || !amount || !keyword || !message) return;
+
+      sendTransaction();
     }
  
   return (
@@ -20,11 +27,12 @@ const Home = () => {
                 <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
           Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto.
         </p>
-        <button type='button' 
+        {!currentAccount && (
+        <button type='button' onClick={connectWallet}
         className='flex flex-row justify-center items-center my-6 bg-[#254fbd] p-3
         rounded-[20px] cursor-pointer hover:bg-[#2562bd]  w-full'>
            <p className='text-white uppercase'><b>Connect wallet</b></p>
-        </button>
+        </button>)} 
         <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${companyCommonStyles}`}>
               Reliability
@@ -68,15 +76,15 @@ const Home = () => {
             </div>
 
             <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-                <input placeholder='Send to...' type="text"  name="receiver" className={inputStyles}/>
-                <input placeholder='Eth amount...' type="number" step="0.0001" name="amount" className={inputStyles}/>
-                <input placeholder='Keyword (to insert gif)...' type="text" name="keyword" className={inputStyles}/>
-                <input placeholder='Message...' type="text" name="message" className={inputStyles}/>
+                <input placeholder='Send to...' type="text"  name="receiver" className={inputStyles} onChange={handleChange}/>
+                <input placeholder='Eth amount...' type="number" step="0.0001" name="amount" className={inputStyles} onChange={handleChange}/>
+                <input placeholder='Keyword (to insert gif)...' type="text" name="keyword" className={inputStyles} onChange={handleChange}/>
+                <input placeholder='Message...' type="text" name="message" className={inputStyles} onChange={handleChange}/>
                 
                 {/* add self closing div for a straight line */}
                 <div className="h-[1px] w-full bg-gray-400 my-2" />
                 {/* either render the loader or the button */}
-                { true ? 
+                { false ? 
                 (<Loader/>
                 ):(
                 <button
