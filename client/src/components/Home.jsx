@@ -25,7 +25,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 
 const Home = () => {
-  const {connectWallet,currentAccount, formData, handleChange, sendTransaction} = useContext(TransactionContext)
+  const {connectWallet,currentAccount, formData, handleChange, sendTransaction, isLoading} = useContext(TransactionContext)
   const handleSubmit =(e) => {
       const {receiver, amount, keyword, message} = formData;
       e.preventDefault();
@@ -98,7 +98,7 @@ const Home = () => {
                 {/* add self closing div for a straight line */}
                 <div className="h-[1px] w-full bg-gray-400 my-2" />
                 {/* either render the loader or the button */}
-                { false ? 
+                { isLoading ? 
                 (<Loader/>
                 ):(
                 <button

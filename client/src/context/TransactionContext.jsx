@@ -14,7 +14,7 @@ const getEthereumContract = () => {
 export const TransactionProvider = ({children}) => {
     const [currentAccount,setCurrentAccount] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    const [transactionCount, setTransactionCount] = useState(localStorage.getItem('transactionCount'))
+    const [transactionsCount, setTransactionsCount] = useState(localStorage.getItem('transactionsCount'))
     const [formData, setFormData] = useState({
         receiver:'',
         amount:'',
@@ -117,7 +117,7 @@ export const TransactionProvider = ({children}) => {
             console.log(`Success - ${transactionHash.hash}`)
 
             const transactionsCount = await transactionsContract.getTransactionsCount();
-            setTransactionCount(transactionsCount.toNumber());
+            setTransactionsCount(transactionsCount.toNumber());
 
 
         } catch (error) {
@@ -144,12 +144,13 @@ export const TransactionProvider = ({children}) => {
             connectWallet,
             currentAccount,
             formData,
-            transactionCount,
+            transactionsCount,
             setFormData,
             handleChange,
             sendTransaction,
             getAllTransactions,
-            transactions
+            transactions,
+            isLoading
         }}>
             {children}
         </TransactionContext.Provider>
